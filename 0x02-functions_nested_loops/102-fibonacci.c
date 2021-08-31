@@ -20,7 +20,7 @@ int main(void)
 
 	printf("%d, %d, ", previous, current);
 
-	while (i <= 50)
+	while (i <= fn)
 	{
 		next = previous + current;
 		previous = current;
