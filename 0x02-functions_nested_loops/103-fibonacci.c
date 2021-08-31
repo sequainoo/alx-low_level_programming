@@ -21,7 +21,7 @@ int main(void)
 	next = 0;
 	i = 3;
 
-	while (current <= fn)
+	while (current <= max)
 	{
 		next = previous + current;
 		previous = current;
