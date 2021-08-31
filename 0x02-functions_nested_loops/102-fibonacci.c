@@ -8,9 +8,9 @@
 int main(void)
 {
 	int fn;
-	int previous;
-	int current;
-	int next;
+	long previous;
+	long current;
+	long next;
 	int i;
 
 	previous = 1;
