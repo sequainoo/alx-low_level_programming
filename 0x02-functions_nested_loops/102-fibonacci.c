@@ -7,7 +7,7 @@
 
 int main(void)
 {
-	int fn = 50;
+	int fn;
 	int previous;
 	int current;
 	int next;
@@ -15,6 +15,7 @@ int main(void)
 
 	previous = 1;
 	current = 2;
+	fn = 50;
 	next = 0;
 	i = 3;
 
