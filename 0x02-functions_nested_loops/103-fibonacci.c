@@ -12,7 +12,7 @@ int main(void)
 	long current;
 	long next;
 	int i;
-	long sum;
+	int sum;
 
 	previous = 1;
 	sum = 2;
