@@ -7,7 +7,7 @@
 
 int main(void)
 {
-	int fn;
+	int max;
 	int previous;
 	int current;
 	int next;
@@ -17,11 +17,11 @@ int main(void)
 	previous = 1;
 	sum = 2;
 	current = 2;
-	fn = 4000000;
+	max = 4000000;
 	next = 0;
 	i = 3;
 
-	while (i <= fn)
+	while (current <= fn)
 	{
 		next = previous + current;
 		previous = current;
