@@ -30,7 +30,7 @@ int main(void)
 			sum += current;
 		i++;
 	}
-	printf("%li\n", sum);
+	printf("%d\n", sum);
 
 	return (0);
 }
