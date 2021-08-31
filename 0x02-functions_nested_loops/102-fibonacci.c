@@ -19,14 +19,14 @@ int main(void)
 	next = 0;
 	i = 3;
 
-	printf("%d, %d, ", previous, current);
+	printf("%li, %li, ", previous, current);
 
 	while (i <= fn)
 	{
 		next = previous + current;
 		previous = current;
 		current = next;
-		printf("%d, ", current);
+		printf("%li, ", current);
 		i++;
 	}
 	printf("\n");
