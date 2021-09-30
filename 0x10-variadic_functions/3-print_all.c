@@ -4,40 +4,40 @@
 
 /**
  * print_char - prints char
- * @ap: ap
+ * @valist: valist
  */
-void print_char(va_list ap)
+void print_char(va_list valist)
 {
-	printf("%c", va_arg(ap, int));
+	printf("%c", va_arg(valist, int));
 }
 
 /**
  * print_int - prints int
- * @ap: ap
+ * @valist: valist
  */
-void print_int(va_list ap)
+void print_int(va_list valist)
 {
-	printf("%d", va_arg(ap, int));
+	printf("%d", va_arg(valist, int));
 }
 
 /**
  * print_float - prints float
- * @ap: ap
+ * @valist: valist
  */
-void print_float(va_list ap)
+void print_float(va_list valist)
 {
-	printf("%f", va_arg(ap, double));
+	printf("%f", va_arg(valist, double));
 }
 
 /**
  * print_string - prints string
- * @ap: ap
+ * @valist: valist
  */
-void print_string(va_list ap)
+void print_string(va_list valist)
 {
 	char *s;
 
-	s = va_arg(ap, char *);
+	s = va_arg(valist, char *);
 
 	if (s == NULL)
 	{
@@ -51,33 +51,35 @@ void print_string(va_list ap)
  * print_all - print varying input of ints, chars, floats, and strings
  * @format: an array of chars signifying which data type to print
  */
-void print_all(const char * const format, ...)
+void print_all(const char *const format, ...)
 {
-	int i, j;
-	va_list ap;
-	datatype_object  type_objects[] ={ {'c', print_char}, 
-					{'i', print_int}, 
-					{'f', print_float},
-					{'s', print_string},
-					{'\0', NULL} };
-	va_start(ap, format);
-	i = 0;
+	char *separator = "";
+	int i, j = 0;
+	va_list valist;
 
-	while (format[i])
+	datatype choice[] = {{'c', print_char},
+						 {'i', print_int},
+						 {'f', print_float},
+						 {'s', print_string},
+						 {'\0', NULL}};
+
+	/* iterate format; if datatype matched, access function via struct */
+	va_start(valist, format);
+	while (format != NULL && format[j] != '\0')
 	{
-		j = 0;
-		while (type_objects[j].letter != '\0')
+		i = 0;
+		while (choice[i].letter != '\0')
 		{
-			if (format[i] == type_objects[j].letter)
+			if (choice[i].letter == format[j])
 			{
-				type_objects[j].func(ap);
-				if (format[i + 1] != '\0')
-					printf(", ");
+				printf("%s", separator);
+				choice[i].func(valist); /*access va_arg later*/
+				separator = ", ";
 			}
-			j++;
+			i++;
 		}
-		i++;
+		j++;
 	}
-	va_end(ap);
+	va_end(valist);
 	printf("\n");
 }

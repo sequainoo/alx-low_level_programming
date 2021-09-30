@@ -18,6 +18,6 @@ typedef struct dt
 {
 	char letter;
 	void (*func)(va_list);
-} datatype_object;
+} datatype;
 
 #endif
