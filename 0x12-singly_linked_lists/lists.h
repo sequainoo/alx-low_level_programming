@@ -21,8 +21,8 @@ typedef struct list_s
 
 /**
  * print_list - prints all elements of list_t list
- * @list_t: list to print
- * return: the number of nodes
+ * @h: list to print
+ * Return: the number of nodes
  */
 size_t print_list(const list_t *h);
 
