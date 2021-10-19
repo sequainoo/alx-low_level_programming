@@ -1,9 +1,10 @@
 #include "main.h"
 
 /**
- * free_and_return - frees buffer and returns 0
+ * free_and_return - frees buffer, closes file and returns 0
  * @buffer: a pionter to the buffer
- * return: 0 for the error conditions
+ * @fd: the file descripter to close
+ * Return: 0 for the error conditions
  */
 int free_and_return(char *buffer, int fd)
 {
@@ -16,7 +17,7 @@ int free_and_return(char *buffer, int fd)
  * read_textfile - reads from a text file on to stdout
  * @filename: the name of the file to read
  * @letters: the number of letters to read from file
- * return: the number of letters read or 0 if error
+ * Return: the number of letters read or 0 if error
  */
 ssize_t read_textfile(const char *filename, size_t letters)
 {
@@ -31,7 +32,7 @@ ssize_t read_textfile(const char *filename, size_t letters)
 	if (fd < 0)
 		return (0);
 
-	buffer = malloc(((sizeof (char)) * letters) + 1);
+	buffer = malloc(((sizeof(char)) * letters) + 1);
 	if (buffer == NULL)
 		return (0);
 
