@@ -5,9 +5,10 @@
  * @buffer: a pionter to the buffer
  * return: 0 for the error conditions
  */
-int free_and_return(char *buffer)
+int free_and_return(char *buffer, int fd)
 {
 	free(buffer);
+	close(fd);
 	return (0);
 }
 
@@ -34,12 +35,13 @@ ssize_t read_textfile(const char *filename, size_t letters)
 		return (0);
 
 	if ((chars_read = read(fd, buffer, letters)) == -1)
-		return (free_and_return(buffer));
+		return (free_and_return(buffer, fd));
 
 	chars_written = write(STDOUT_FILENO, buffer, chars_read);
 	if (chars_written < chars_read || chars_written == -1)
-		return (free_and_return(buffer));
+		return (free_and_return(buffer, fd));
 
 	free(buffer);
+	close(fd);
 	return (chars_written);
 }

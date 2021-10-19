@@ -9,6 +9,6 @@
 ssize_t read_textfile(const char *filename, size_t letters);
 
 /* helpers */
-int free_and_return(char *buffer);
+int free_and_return(char *buffer, int fd);
 
 #endif
