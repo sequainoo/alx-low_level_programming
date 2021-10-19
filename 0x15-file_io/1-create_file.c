@@ -30,8 +30,8 @@ int create_file(const char *filename, char *text_content)
 	/* find number of bytes to write */
 	len = 0;
 	pos = text_content;
-	while (pos[len++] != '\0')
-		;
+	while (*pos++ != '\0')
+		++len;
 
 	/* write to file */
 	b_written = write(fd, text_content, len);
