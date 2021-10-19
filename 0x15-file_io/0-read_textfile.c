@@ -21,20 +21,22 @@ int free_and_return(char *buffer, int fd)
 ssize_t read_textfile(const char *filename, size_t letters)
 {
 	int fd;
-	int chars_read, chars_written;
+	ssize_t chars_read, chars_written;
 	char *buffer;
 
 	if (filename == NULL)
 		return (0);
+
 	fd = open(filename, O_RDONLY);
 	if (fd < 0)
 		return (0);
-	buffer = malloc(((sizeof (char)) * letters) + 1);
 
+	buffer = malloc(((sizeof (char)) * letters) + 1);
 	if (buffer == NULL)
 		return (0);
 
-	if ((chars_read = read(fd, buffer, letters)) == -1)
+	chars_read = read(fd, buffer, letters);
+	if (chars_read == -1)
 		return (free_and_return(buffer, fd));
 
 	chars_written = write(STDOUT_FILENO, buffer, chars_read);
