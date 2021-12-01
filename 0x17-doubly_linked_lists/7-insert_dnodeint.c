@@ -1,6 +1,7 @@
 #include "lists.h"
 
 /**
+ * insert_dnodeint_at_index - insert node in dlist
  * @h: points to a pointer to the head
  * @idx: inde to insert to
  * @n: the value to insert
