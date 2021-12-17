@@ -1,77 +1,87 @@
 #include "hash_tables.h"
 
 /**
- * hash_table_set - adds an element to the hash table.
- * @ht: the hash table
- * @key: key
+ * create_and_add_node - malloc, set values, and insert node into hash table
+ * @ht: hash table
+ * @key: key; can't be empty string
  * @value: value
- * Return: int
+ * @idx: index to insert in at hash table
+ * Return: 1 if success, 0 if fail
  */
-int hash_table_set(hash_table_t *ht, const char *key, const char *value)
+int create_and_add_node(hash_table_t *ht, const char *key, const char *value,
+			unsigned long int idx)
 {
-	hash_node_t *node, *head, *elem;
-	unsigned long int index;
+	hash_node_t *node = NULL;
 	char *k;
-
-	if (ht->array == NULL)
-		return (0);
-	if (key == NULL || strlen(key) == 0)
-		return (0);
-	k = _strcpy(key);
-	index = hash_djb2((const unsigned char *)k) % ht->size;
-	head = ht->array[index], elem = head;
+	char *v;
 
 	node = malloc(sizeof(hash_node_t));
-	if (node == NULL)
+	if (!node)
 		return (0);
+
+	k = strdup(key);
+	if (!k)
+	{
+		free(node);
+		return (0);
+	}
+
+	v = strdup(value);
+	if (!v)
+	{
+		free(k);
+		free(node);
+		return (0);
+	}
+
 	node->key = k;
-	node->value = _strcpy(value);
-	if (head == NULL)
-	{
+	node->value = v;
+
+	if ((ht->array)[idx] == NULL)
 		node->next = NULL;
-		ht->array[index] = node;
-		return (1);
-	}
 	else
-	{
-		while (elem != NULL)
-		{
-			if (elem->key == k)
-			{
-				elem->value = strcat(elem->value, value);
-				free(node);
-				return (1);
-			}
-			elem = elem->next;
-		}
-		node->next = head;
-		ht->array[index] = node;
-		return (1);
-	}
-	return (0);
+		node->next = (ht->array)[idx];
+	(ht->array)[idx] = node;
+
+	return (1);
 }
 
 /**
- * _strcpy - copies a string
- * @str: str to copy
- * Return: char*
+ * hash_table_set - add element to hash table
+ * @ht: hash table
+ * @key: key; can't be empty string
+ * @value: value
+ * Return: 1 if success, 0 if fail
  */
-char *_strcpy(const char *str)
+int hash_table_set(hash_table_t *ht, const char *key, const char *value)
 {
-	char *key;
-	size_t i;
+	/* get index */
+	/* if key already exists, update value and return */
+	/* else create node */
+	/* set ht idx ptr to node; else add node to front if collision */
 
-	key = malloc(sizeof(str));
-	if (key == NULL)
+	unsigned long int idx;
+	hash_node_t *node = NULL;
+	char *v;
+
+	if (!ht || !(ht->array) || !key || strlen(key) == 0 || !value)
 		return (0);
 
-	i = 0;
-	while (i < strlen(str))
-	{
-		key[i] = str[i];
-		i += 1;
-	}
-	key[i] = '\0';
+	idx = key_index((const unsigned char *)key, ht->size);
 
-	return (key);
+	node = (ht->array)[idx];
+	while (node && (strcmp(key, node->key) != 0))
+		node = node->next;
+	if (node != NULL)
+	{
+		v = strdup(value);
+		if (!v)
+			return (0);
+		if (node->value)
+			free(node->value);
+		node->value = v;
+		return (1);
+	}
+
+	return (create_and_add_node(ht, key, value, idx));
 }
