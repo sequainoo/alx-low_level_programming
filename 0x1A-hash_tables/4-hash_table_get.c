@@ -8,21 +8,24 @@
  */
 char *hash_table_get(const hash_table_t *ht, const char *key)
 {
-	unsigned long int idx;
-	hash_node_t *tmp;
+	unsigned long int index;
+    hash_node_t *node;
+    char *k = _strcpy(key);
 
-	/* find index in hash table where key is */
-	/* look through linked list to find matching key for value */
+    index = hash_djb2((const unsigned char*)k) % ht->size;
+    node = ht->array[index];
 
-	if (!ht || !key)
-		return (NULL);
-	idx = key_index((const unsigned char *)key, ht->size);
-
-	tmp = (ht->array)[idx];
-	while (tmp != NULL && strcmp(tmp->key, key) != 0)
-		tmp = tmp->next;
-	if (!tmp)
-		return (NULL);
-	else
-		return (tmp->value);
+    if (node == NULL)
+        return (NULL);
+    
+    while (node && strcmp(node->key, k) != 0)
+    {
+        node = node->next;
+    }
+    if (node)
+    {
+        return (node->value);
+    }
+    else
+        return (NULL);
 }

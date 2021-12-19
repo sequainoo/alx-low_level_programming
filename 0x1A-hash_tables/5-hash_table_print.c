@@ -6,24 +6,38 @@
  */
 void hash_table_print(const hash_table_t *ht)
 {
-	unsigned long int idx = 0;
-	hash_node_t *node;
-	char *comma = "";
+	hash_node_t *node, **array;
+	unsigned long int index;
 
-	if (!ht || !ht->array)
+	if (ht == NULL)
 		return;
+	
+	index = 0;
+	array = ht->array;
 
 	putchar('{');
-	while (idx < ht->size)
+	while (index < ht->size)
 	{
-		node = ((ht->array)[idx]);
-		while (node)
+		node = array[index];
+		if (node == NULL)
 		{
-			printf("%s'%s': '%s'", comma, node->key, node->value);
-			comma = ", ";
-			node = node->next;
+			index += 1;
+			continue;
 		}
-		idx++;
+		print_node(node);
+		if (index < ht->size - 1)
+			printf(", ");
+		index += 1;
 	}
 	puts("}");
+
+}
+
+void print_node(hash_node_t *node)
+{
+	while (node)
+	{
+		printf("'%s': '%s'", node->key, node->value);
+		node = node->next;
+	}
 }
