@@ -1,0 +1,27 @@
+# build executable named school.
+# does not recompile the sources again but can force it with the re rule
+
+CC = gcc
+SRC = $(wildcard *.c)
+OBJ = $(SRC:%.c=%.o)
+NAME = school
+RM = rm
+CFLAGS = -Wall -Werror -Wextra -pedantic
+
+all: $(OBJ)
+	$(CC) $(CFLAGS) -o $(NAME) $^
+
+%.o: %.c
+	$(CC) $(CFLAGS) -c -o $@ $^
+
+clean:
+	$(RM) *~ *#*#* $(NAME)
+
+oclean:
+	$(RM) *.o
+
+fclean:
+	$(RM) *~ *#*#* $(NAME) *.o
+
+re:
+	$(CC) -c $(SRC)
