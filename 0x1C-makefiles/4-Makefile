@@ -2,26 +2,21 @@
 # does not recompile the sources again but can force it with the re rule
 
 CC = gcc
-SRC = $(wildcard *.c)
+SRC = main.c school.c
 OBJ = $(SRC:%.c=%.o)
 NAME = school
-RM = rm
+RM = rm -f
 CFLAGS = -Wall -Werror -Wextra -pedantic
 
-all: $(OBJ)
-	$(CC) $(CFLAGS) -o $(NAME) $^
-
-%.o: %.c
-	$(CC) $(CFLAGS) -c -o $@ $^
+all: m.h $(OBJ)
+	$(CC) $(CFLAGS)  $^ -o $(NAME)
 
 clean:
-	$(RM) *~ *#*#* $(NAME)
+	$(RM) *~  $(NAME)
 
 oclean:
-	$(RM) *.o
+	$(RM) $(OBJ)
 
-fclean:
-	$(RM) *~ *#*#* $(NAME) *.o
+fclean: clean oclean
 
-re:
-	$(CC) -c $(SRC)
+re: oclean all

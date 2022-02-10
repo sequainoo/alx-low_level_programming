@@ -1,27 +1,22 @@
 # build executable named school.
 # does not recompile the sources again but can force it with the re rule
 
+
 CC = gcc
-SRC = $(wildcard *.c)
+SRC = main.c school.c
 OBJ = $(SRC:%.c=%.o)
 NAME = school
-RM = rm
+RM = rm -f
 
-all: $(OBJ)
-	$(CC) -o $(NAME) $^
-
-%.o: %.c
-	$(CC) -c -o $@ $^
+all: m.h $(OBJ)
+	$(CC)  $^ -o $(NAME)
 
 clean:
-	$(RM) *~ *#*#* $(NAME)
+	$(RM) *~  $(NAME)
 
 oclean:
-	$(RM) *.o
+	$(RM) $(OBJ)
 
+fclean: clean oclean
 
-fclean:
-	$(RM) *~ *#*#* $(NAME) *.o
-
-re:
-	$(CC) -c $(SRC)
+re: oclean all

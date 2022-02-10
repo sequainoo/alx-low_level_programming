@@ -1,12 +1,7 @@
-# a useful makefile
-
 CC = gcc
-SRC = $(wildcard *.c)
+SRC = main.c school.c
 OBJ = $(SRC:%.c=%.o)
 NAME = school
 
-all: $(OBJ)
+all: m.h $(OBJ)
 	$(CC) $^ -o $(NAME)
-
-%.o: %.c
-	$(CC) -c $^ -o $@
