@@ -1,4 +1,2 @@
-# usage -f 0-Makefile
-
-all:
-	gcc $(wildcard *.c) -o school
+all: m.h main.c school.c
+	gcc $^ -o school
