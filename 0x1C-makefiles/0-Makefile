@@ -1,0 +1,4 @@
+# usage -f 0-Makefile
+
+all:
+	gcc $(wildcard *.c) -o school

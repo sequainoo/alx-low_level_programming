@@ -1,0 +1,9 @@
+# Building the executable school with the all rule
+# usage:
+#	make -f 1-Makefile
+
+CC = gcc
+SRC = $(wildcard *.c)
+
+all: $(SRC)
+	$(CC) $^ -o school
