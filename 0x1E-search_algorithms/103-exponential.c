@@ -90,6 +90,6 @@ int exponential_search(int *array, size_t size, int value)
 		if (bound < size)
 			printf("Value checked array[%lu] = [%d]\n", bound, array[bound]);
 	}
-	return binary_search(array, value, bound/2, min(bound, size - 1));
+	return (binary_search(array, value, bound / 2, min(bound, size - 1)));
 }
 
